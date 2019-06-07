@@ -1,0 +1,34 @@
+{
+  "name": "apollo-server-agnostic",
+  "version": "0.0.0",
+  "description": "Framework agnostic Node.js GraphQL Apollo Server",
+  "main": "out/index.js",
+  "module": "src/index.js",
+  "repository": "git@github.com:jlarmstrongiv/apollo-server-agnostic.git",
+  "author": "John Armstrong <jlarmst@g.clemson.edu>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "babel ./src --out-dir ./out",
+    "watch": "nodemon --watch ./src --exec 'yarn build'"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-jest": "^22.6.4",
+    "eslint-plugin-react": "^7.13.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "@apollographql/graphql-playground-html": "^1.6.20",
+    "apollo-server-core": "^2.6.2",
+    "apollo-server-env": "^2.4.0",
+    "graphql-tools": "^4.0.4"
+  },
+  "peerDependencies": {
+    "graphql": "^0.12.0 || ^0.13.0 || ^14.0.0"
+  }
+}
