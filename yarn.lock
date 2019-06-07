@@ -999,6 +999,11 @@ escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
+eslint-config-jlarmst@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/eslint-config-jlarmst/-/eslint-config-jlarmst-0.0.7.tgz#868db1079bb35078f02123173e624f34edac1e17"
+  integrity sha512-DiM0ieARhRDrNluZkokNyoC7OjeG68If9d49FLxjsj/tXO6r9VZcwS9htQQAcMLt3GG1TRDW8DcLA+WrERcGRg==
+
 eslint-plugin-jest@^22.6.4:
   version "22.6.4"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-22.6.4.tgz#2895b047dd82f90f43a58a25cf136220a21c9104"
