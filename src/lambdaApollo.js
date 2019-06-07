@@ -18,8 +18,8 @@ export function graphqlLambda(options) {
 
   // returns a promise, runHttpQuery is async
   // ctx is optional
-  const graphqlHandler = async (queryInfo = {}, ctx) => {
-    if (!queryInfo.query) {
+  const graphqlHandler = async (req = {}, ctx) => {
+    if (!req.query) {
       return {
         body: 'Query missing.',
         statusCode: 500,
@@ -33,13 +33,13 @@ export function graphqlLambda(options) {
         graphqlResponse,
         responseInit,
         // first args array seems to be optional
-      } = await runHttpQuery([queryInfo, ctx,], {
-        method: queryInfo.httpMethod,
+      } = await runHttpQuery([req, ctx,], {
+        method: req.httpMethod,
         options: options,
-        query: queryInfo.query,
+        query: req.query,
         request: {
-          url: queryInfo.path,
-          method: queryInfo.httpMethod,
+          url: req.path,
+          method: req.httpMethod,
           headers: new Headers(),
         },
       });

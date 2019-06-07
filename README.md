@@ -218,6 +218,21 @@ const server = new ApolloServer({
 
 See this Apollo Server [issue](https://github.com/apollographql/apollo-server/issues/1472).
 
+#### Passing in Context
+
+```js
+const server = new ApolloServer({
+  context: context => context,
+})
+```
+returns
+```js
+{
+  request: req,
+  ctx: [], // any other args passed to graphqlHandler
+}
+```
+
 ### License
 
 MIT

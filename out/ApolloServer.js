@@ -40,10 +40,10 @@ class ApolloServer extends _apolloServerCore.ApolloServerBase {
     // await it before processing any requests by incorporating its `await` into
     // the GraphQLServerOptions function which is called before each request.
     const promiseWillStart = this.willStart();
-    return (queryInfo, ...ctx) => {
-      if (this.playgroundOptions && queryInfo.httpMethod === 'GET') {
-        if (queryInfo.accept.includes('text/html')) {
-          const path = queryInfo.path || '/';
+    return (req, ...ctx) => {
+      if (this.playgroundOptions && req.httpMethod === 'GET') {
+        if (req.accept.includes('text/html')) {
+          const path = req.path || '/';
           const playgroundRenderPageOptions = {
             endpoint: path,
             ...this.playgroundOptions
@@ -69,10 +69,10 @@ class ApolloServer extends _apolloServerCore.ApolloServerBase {
         await promiseWillStart; // GraphQLServerOptions becomes context (parent, context, args, info)
 
         return this.createGraphQLServerOptions({
-          queryInfo,
+          req,
           ctx
         }); // so passing context here is optional
-      })(queryInfo, ctx);
+      })(req, ctx);
     };
   }
 
