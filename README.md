@@ -46,21 +46,22 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: context => context,
 });
 
 const graphqlHandler = server.createHandler();
 ```
 
-The function `graphqlHandler` accepts a response object.  In order for this module to remain framework agnostic, you must format the request yourself.  It is recommended to encapsulate the object re-mapping code inside a function.
+The function `graphqlHandler` accepts a request object.  In order for this module to remain framework agnostic, you must format the request object yourself.  It is recommended to encapsulate the object re-mapping code inside a function.
 
-The `graphqlHandler` function accepts a request parameter defined as:
+The `graphqlHandler` function accepts a request object defined as:
 
 ```tsx
 // request
 type req {
-  httpMethod: String, // POST or GET
-  accept: String, // 'application/json' or 'text/html'
-  path: String, // /graphql
+  httpMethod: String, // POST, GET, …
+  accept: String, // 'application/json', 'text/html', '*/*', …
+  path: String, // /graphql, …
   query: Query, // standardized Query object from request.body or request.queryParams
 }
 ```
@@ -117,9 +118,9 @@ app.use(bodyParser.json());
 app.get('/graphql', async (req, res) => {
   const response = await graphqlHandler(formatExpress(req));
 
-  res.status(response.statusCode)
-    .set(response.headers)
-    .send(response.body);
+  res.status(response.statusCode) // use statusCode
+    .set(response.headers) // merge headers
+    .send(response.body); // send body string
 });
 
 app.post('/graphql', async (req, res) => {
@@ -169,7 +170,8 @@ const { formatClaudia, } = require('./format');
 
 const api = new ApiBuilder();
 
-api.corsMaxAge(60); // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age
+api.corsMaxAge(60);
 
 // Create graphqlHandler here
 
@@ -213,6 +215,7 @@ Disabling the GUI requires ApolloServer settings:
 const server = new ApolloServer({
   introspection: false,
   playground: false,
+  context: context => context,
 });
 ```
 
@@ -220,16 +223,24 @@ See this Apollo Server [issue](https://github.com/apollographql/apollo-server/is
 
 #### Passing in Context
 
+Context allows you to pass in additional information with your request, such as authentication headers, etc.  Enable context with:
+
 ```js
 const server = new ApolloServer({
   context: context => context,
 })
 ```
-returns
+
+Inside your resolvers, your context object will be:
+
 ```js
+const response = await graphqlHandler(formatClaudia(request), { arg1: true, }, 'arg2');
+
+// resolver: (parent, args, context, info) => { … }
+
 {
-  request: req,
-  ctx: [], // any other args passed to graphqlHandler
+  req: request,
+  ctx: [{ arg1: true, }, 'arg2',], // any other args passed to graphqlHandler
 }
 ```
 
