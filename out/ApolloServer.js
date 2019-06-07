@@ -11,16 +11,19 @@ var _lambdaApollo = require("./lambdaApollo");
 
 var _graphqlPlaygroundHtml = require("@apollographql/graphql-playground-html");
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 class ApolloServer extends _apolloServerCore.ApolloServerBase {
   // If you feel tempted to add an option to this constructor. Please consider
   // another place, since the documentation becomes much more complicated when
   // the constructor is not longer shared between all integration
   constructor(options) {
     if (process.env.ENGINE_API_KEY || options.engine) {
-      options.engine = {
-        sendReportsImmediately: true,
-        ...(typeof options.engine !== 'boolean' ? options.engine : {})
-      };
+      options.engine = _objectSpread({
+        sendReportsImmediately: true
+      }, typeof options.engine !== 'boolean' ? options.engine : {});
     }
 
     super(options);
@@ -44,10 +47,11 @@ class ApolloServer extends _apolloServerCore.ApolloServerBase {
       if (this.playgroundOptions && req.httpMethod === 'GET') {
         if (req.accept.includes('text/html')) {
           const path = req.path || '/';
-          const playgroundRenderPageOptions = {
-            endpoint: path,
-            ...this.playgroundOptions
-          };
+
+          const playgroundRenderPageOptions = _objectSpread({
+            endpoint: path
+          }, this.playgroundOptions);
+
           return {
             body: (0, _graphqlPlaygroundHtml.renderPlaygroundPage)(playgroundRenderPageOptions),
             statusCode: 200,
