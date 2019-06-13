@@ -224,7 +224,9 @@ See this Apollo Server [issue](https://github.com/apollographql/apollo-server/is
 
 #### Passing in Context
 
-Context allows you to pass in additional information with your request, such as authentication headers, etc.  Enable context with:
+Context allows you to pass in additional information with your request, such as authentication headers, etc.
+
+Minimal required to enable context:
 
 ```js
 const server = new ApolloServer({
@@ -232,7 +234,7 @@ const server = new ApolloServer({
 })
 ```
 
-Inside your resolvers, your context object will be:
+More complex context example:
 
 ```js
 // inside server setup
