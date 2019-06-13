@@ -235,13 +235,29 @@ const server = new ApolloServer({
 Inside your resolvers, your context object will be:
 
 ```js
-const response = await graphqlHandler(formatClaudia(request), { arg1: true, }, 'arg2');
+// inside server setup
 
-// resolver: (parent, args, context, info) => { … }
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: context => {
+    context.db = 'db';
+    return context;
+  },
+});
+
+const graphqlHandler = server.createHandler();
+
+// inside request handler
+
+const response = await graphqlHandler(format(request), { arg1: true, }, 'arg2');
+
+// inside resolver: (parent, args, context, info) => { … }
 
 // context object
 {
-  req: request,
+  db: 'db',
+  req: request, // result from format(request)
   ctx: [{ arg1: true, }, 'arg2',], // any other args passed to graphqlHandler
 }
 ```
