@@ -71,6 +71,7 @@ All other parameters passed to the `graphqlHandler` function will be merged as a
 Calling `graphqlHandler(format(req))` returns a Promise with:
 
 ```tsx
+// response
 type res {
   body: String // response body, already JSON.stringify()
   headers: Object // response headers
