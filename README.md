@@ -239,6 +239,7 @@ const response = await graphqlHandler(formatClaudia(request), { arg1: true, }, '
 
 // resolver: (parent, args, context, info) => { … }
 
+// context object
 {
   req: request,
   ctx: [{ arg1: true, }, 'arg2',], // any other args passed to graphqlHandler
