@@ -1,6 +1,6 @@
 {
   "name": "apollo-server-agnostic",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Framework agnostic Node.js GraphQL Apollo Server",
   "main": "out/index.js",
   "module": "src/index.js",
